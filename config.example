@@ -1,0 +1,45 @@
+#Edit all Variables for best Experience
+
+UPDATES='yes'                # Proxmox VE und PBS Updates nach dem Lauf
+SHUTDOWN='no'                # System nach Ausführung herunterfahren?
+DYNROUTE='yes'
+DDNS_GATEWAY='192.168.66.1' 
+REBOOT='no'                  # Reboot nach Update?
+
+# Quelle (Proxmox VE System, das gesichert wird)
+SOURCEPORT='22'                  # SSH-Port, normalerweise 22
+SOURCEHOST='192.168.50.200'  # IP des Quell-Proxmox-Servers
+
+# Replikation (ZFS)
+ZFSROOT='rpool/data'                       # Erstes Dataset vom Quellsystem
+ZFSSECOND='rpool-hdd/data'                # Optional zweites Dataset
+ZFSTRGT='rpool-ssd1/repl/pve200'          # Zielpfad für Replikation
+
+# ZFS Zsync Replikation
+ZSYNC='yes'                                # ZSYNC aktivieren (ja/nein)
+ZPUSHTAG='bashclub:zsync-198-ssd'         # Benutzer-Tag für ZFS
+ZPUSHMINKEEP='3'                          # Mindestens zu behaltende Snapshots
+ZPUSHKEEP='14'                            # Snapshots mit dem Tag, die behalten werden
+ZPUSHLABEL='zsync-rz'                     # Suffix für Snapshot-Autoengine
+ZPUSHFILTER='hourly|daily|weekly|monthly' # Weitere Filter (leer lassen oder Muster wie daily| weekly etc.)
+
+# Backup mit Proxmox Backup Server
+BACKUPSERVER='no'                         # Backup via PBS aktivieren?
+MAINTDAY='7'                              # Wartungstag (1=Mo, 7=So)
+PBSHOST='192.168.50.199'                  # IP des Proxmox Backup Servers
+PBSPORT='22' 
+BACKUPSTORE='backup'                      # Datastore auf Quell-Proxmox
+BACKUPSTOREPBS='backup'                   # Datastore auf PBS
+BACKUPEXCLUDE='10,3252,3253,3254'         # VM/CT-IDs, die vom Backup ausgeschlossen sind
+REPLEXCLUDE=$BACKUPEXCLUDE              # Diese auch von Replikation ausschließen
+
+# Zusätzliche Monitoring-Ziele 
+# External Piggyback Host
+EPIGGYBACK='no'                     # Piggyback-Daten an Monitoring-Ziel senden?
+EPIGGYBACK_PORT='222'              # SSH-Port für EPIGGYBACK_HOST
+EPIGGYBACK_HOST='192.168.66.10'    # Monitoring-Zielhost für Piggyback
+
+# External Checkzfs Host
+ECHECKZFS='no'                     # check_zfs-Output an Monitoring-Ziel senden?
+ECHECKZFS_PORT='2222'              # SSH-Port für ECHECKZFS_HOST
+ECHECKZFS_HOST='192.168.50.210'    # Monitoring-Zielhost für check_zfs
