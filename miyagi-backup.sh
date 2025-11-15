@@ -497,7 +497,6 @@ shutdown_now() {
     send_piggyback_external
     send_checkzfs_external
     log "Shutting down now...in 1 min"
-    #sleep 60
     shutdown +1
   else
     log "No shutdown requested."
